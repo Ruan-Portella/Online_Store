@@ -54,7 +54,9 @@ class Home extends React.Component {
           </p>
         )}
         <Link to="/ShoppingCart" data-testid="shopping-cart-button" />
-        <ProductCard productsList={ productsList } />
+        {productsList.length > 0
+          ? <ProductCard productsList={ productsList } />
+          : <p>Nenhum produto foi encontrado</p>}
       </>
     );
   }
