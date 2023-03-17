@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import FilterCategories from '../Components/FilterCategories';
 
 function Home() {
   const [search, setSearch] = useState('');
@@ -8,6 +9,7 @@ function Home() {
   };
   return (
     <>
+      <aside><FilterCategories /></aside>
       <label>
         <input
           type="text"
