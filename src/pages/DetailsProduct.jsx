@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { getProductById } from '../services/api';
+import { SaveProduct } from '../helper/SaveCart';
 
 export default class DetailsProduct extends Component {
   state = {
@@ -44,6 +45,10 @@ export default class DetailsProduct extends Component {
 
           </Link>
         </ul>
+        <button
+          data-testid="product-detail-add-to-cart"
+          onClick={ () => SaveProduct(this.state) }>
+           Adicionar Ao Carrinho De Compras</button>
       </section>
     );
   }
