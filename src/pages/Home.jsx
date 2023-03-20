@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import FilterCategories from '../Components/FilterCategories';
-import { getProductByQuery } from '../services/api';
+import { getProductByCategory, getProductByQuery } from '../services/api';
 import ProductCard from '../Components/ProductCard';
 
 class Home extends React.Component {
@@ -28,11 +28,20 @@ class Home extends React.Component {
     });
   };
 
+  getCategory = async (category) => {
+    const { id } = category;
+    console.log();
+    const list = await getProductByCategory(id);
+    this.setState({
+      productsList: list,
+    });
+  };
+
   render() {
     const { search, productsList } = this.state;
     return (
       <>
-        <aside><FilterCategories /></aside>
+        <aside><FilterCategories getCategory={ this.getCategory } /></aside>
         <label>
           <input
             data-testid="query-input"
