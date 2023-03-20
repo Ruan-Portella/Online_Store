@@ -19,14 +19,18 @@ export default class FilterCategories extends React.Component {
       <div>
         <fieldset>
           {categories.map((category) => (
-            <input
-              type="radio"
+            <label
               key={ category.id }
-              data-testid="category"
-              name="option"
-              value={ category.name }
-              onChange={ () => getCategory(category) }
-            />
+            >
+              <input
+                type="radio"
+                data-testid="category"
+                name="option"
+                value={ category.name }
+                onChange={ () => getCategory(category) }
+              />
+              { category.name }
+            </label>
           ))}
         </fieldset>
       </div>
