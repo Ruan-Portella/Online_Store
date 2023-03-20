@@ -1,5 +1,5 @@
 import React from 'react';
-import { GetSavedProductQuantity } from '../helper/SaveCart';
+import { SaveProduct, GetSavedProductQuantity } from '../helper/SaveCart';
 
 class ShoppingCart extends React.Component {
   constructor() {
@@ -15,6 +15,47 @@ class ShoppingCart extends React.Component {
     this.setState({ productsList: Cart });
   }
 
+  increaseProductQuantity = (productId) => {
+    const { productsList } = this.state;
+    const newProductsList = productsList.map((product) => {
+      if (product.productCart.id === productId) {
+        return {
+          productCart: product.productCart,
+          quantityCart: product.quantityCart + 1,
+        };
+      }
+      return product;
+    });
+    this.setState({ productsList: newProductsList });
+    GetSavedProductQuantity(newProductsList);
+  };
+
+  decreaseProductQuantity = (productId) => {
+    const { productsList } = this.state;
+    const newProductsList = productsList.map((product) => {
+      if (product.productCart.id === productId) {
+        if (product.quantityCart > 1) {
+          return {
+            productCart: product.productCart,
+            quantityCart: product.quantityCart - 1,
+          };
+        }
+        return product;
+      }
+      return product;
+    });
+    this.setState({ productsList: newProductsList });
+    GetSavedProductQuantity(newProductsList);
+  };
+
+  removeProductFromCart = (productId) => {
+    const { productsList } = this.state;
+    const newProductsList = productsList.filter((product) => product
+      .productCart.id !== productId);
+    this.setState({ productsList: newProductsList });
+    SaveProduct(newProductsList);
+  };
+
   render() {
     const { productsList } = this.state;
     return (
@@ -27,7 +68,7 @@ class ShoppingCart extends React.Component {
                 productsList.map((product) => (
                   <li key={ product.productCart.id }>
                     <h3 data-testid="shopping-cart-product-name">
-                      { product.productCart.title }
+                      {product.productCart.title}
 
                     </h3>
                     <img
@@ -36,8 +77,37 @@ class ShoppingCart extends React.Component {
                     />
                     <p>{product.productCart.price}</p>
                     <p data-testid="shopping-cart-product-quantity">
-                      { product.quantityCart }
+                      {product.quantityCart}
                     </p>
+                    <div>
+                      <button
+                        type="button"
+                        data-testid="product-decrease-quantity"
+                        onClick={ () => this.decreaseProductQuantity(product
+                          .productCart.id) }
+                      >
+                        -
+                      </button>
+                      <p data-testid="shopping-cart-product-quantity">
+                        { product.quantityCart }
+                      </p>
+                      <button
+                        type="button"
+                        data-testid="product-increase-quantity"
+                        onClick={ () => this.increaseProductQuantity(product
+                          .productCart.id) }
+                      >
+                        +
+                      </button>
+                      <button
+                        type="button"
+                        data-testid="remove-product"
+                        onClick={ () => this.removeProductFromCart(product
+                          .productCart.id) }
+                      >
+                        Remover
+                      </button>
+                    </div>
                   </li>
                 ))
               )
@@ -47,5 +117,4 @@ class ShoppingCart extends React.Component {
     );
   }
 }
-
 export default ShoppingCart;

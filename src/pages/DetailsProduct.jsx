@@ -47,8 +47,10 @@ export default class DetailsProduct extends Component {
         </ul>
         <button
           data-testid="product-detail-add-to-cart"
-          onClick={ () => SaveProduct(this.state) }>
-           Adicionar Ao Carrinho De Compras</button>
+          onClick={ () => SaveProduct(this.state) }
+        >
+          Adicionar Ao Carrinho De Compras
+        </button>
       </section>
     );
   }
