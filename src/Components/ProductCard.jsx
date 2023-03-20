@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { SaveProduct } from '../helper/SaveCart';
 
 export default class ProductCard extends Component {
   render() {
@@ -9,19 +10,26 @@ export default class ProductCard extends Component {
       <ul>
         {
           productsList.map((product) => (
-            <Link
-              data-testid="product-detail-link"
-              to={ `/DetailsProduct/${product.id}` }
+            <li
               key={ product.id }
+              data-testid="product"
             >
-              <li
-                data-testid="product"
+              <Link
+                data-testid="product-detail-link"
+                to={ `/DetailsProduct/${product.id}` }
               >
                 <h2>{product.title}</h2>
                 <img src={ product.thumbnail } alt={ product.title } />
                 <p>{`Preço: R$ ${product.price}`}</p>
-              </li>
-            </Link>
+              </Link>
+              <button
+                onClick={ () => SaveProduct(product) }
+                data-testid="product-add-to-cart"
+                id={ product.id }
+              >
+                Adicionar Ao Carrinho
+              </button>
+            </li>
           ))
         }
       </ul>
