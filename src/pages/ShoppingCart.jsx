@@ -1,10 +1,10 @@
 import React from 'react';
-import { SaveProduct, GetSavedProductQuantity } from '../helper/SaveCart';
+import { GetSavedProductQuantity, removeCartID,
+  removeCartIDButton, SaveProduct } from '../helper/SaveCart';
 
 class ShoppingCart extends React.Component {
   constructor() {
     super();
-
     this.state = {
       productsList: [],
     };
@@ -15,102 +15,67 @@ class ShoppingCart extends React.Component {
     this.setState({ productsList: Cart });
   }
 
-  increaseProductQuantity = (productId) => {
-    const { productsList } = this.state;
-    const newProductsList = productsList.map((product) => {
-      if (product.productCart.id === productId) {
-        return {
-          productCart: product.productCart,
-          quantityCart: product.quantityCart + 1,
-        };
-      }
-      return product;
-    });
-    this.setState({ productsList: newProductsList });
-    GetSavedProductQuantity(newProductsList);
+  RemoveCart = (product) => {
+    if (product.quantityCart === 1) {
+      return;
+    }
+    removeCartID(product.productCart);
+    this.componentDidMount();
   };
 
-  decreaseProductQuantity = (productId) => {
-    const { productsList } = this.state;
-    const newProductsList = productsList.map((product) => {
-      if (product.productCart.id === productId) {
-        if (product.quantityCart > 1) {
-          return {
-            productCart: product.productCart,
-            quantityCart: product.quantityCart - 1,
-          };
-        }
-        return product;
-      }
-      return product;
-    });
-    this.setState({ productsList: newProductsList });
-    GetSavedProductQuantity(newProductsList);
+  RemoveCartButtom = (product) => {
+    removeCartIDButton(product.productCart.id);
+    this.componentDidMount();
   };
 
-  removeProductFromCart = (productId) => {
-    const { productsList } = this.state;
-    const newProductsList = productsList.filter((product) => product
-      .productCart.id !== productId);
-    this.setState({ productsList: newProductsList });
-    SaveProduct(newProductsList);
+  SaveCarts = (product) => {
+    SaveProduct(product);
+    this.componentDidMount();
   };
 
   render() {
     const { productsList } = this.state;
     return (
       <section>
-        <ul>
+        <ul data-testid="product-add-to-cart">
           {
             productsList.length <= 0 ? (
               <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>)
               : (
                 productsList.map((product) => (
                   <li key={ product.productCart.id }>
-                    <h3 data-testid="shopping-cart-product-name">
-                      {product.productCart.title}
-
-                    </h3>
+                    <h2 data-testid="shopping-cart-product-name">
+                      { product.productCart.title }
+                    </h2>
                     <img
                       src={ product.productCart.thumbnail }
                       alt={ product.productCart.title }
                     />
-                    <p>{product.productCart.price}</p>
+                    <p>{ product.productCart.price }</p>
+                    <button
+                      data-testid="product-decrease-quantity"
+                      onClick={ () => this.RemoveCart(product) }
+                    >
+                      -
+                    </button>
                     <p data-testid="shopping-cart-product-quantity">
-                      {product.quantityCart}
+                      { product.quantityCart }
                     </p>
-                    <div>
-                      <button
-                        type="button"
-                        data-testid="product-decrease-quantity"
-                        onClick={ () => this.decreaseProductQuantity(product
-                          .productCart.id) }
-                      >
-                        -
-                      </button>
-                      <p data-testid="shopping-cart-product-quantity">
-                        { product.quantityCart }
-                      </p>
-                      <button
-                        type="button"
-                        data-testid="product-increase-quantity"
-                        onClick={ () => this.increaseProductQuantity(product
-                          .productCart.id) }
-                      >
-                        +
-                      </button>
-                      <button
-                        type="button"
-                        data-testid="remove-product"
-                        onClick={ () => this.removeProductFromCart(product
-                          .productCart.id) }
-                      >
-                        Remover
-                      </button>
-                    </div>
+                    <button
+                      data-testid="product-increase-quantity"
+                      id={ product.productCart.id }
+                      onClick={ () => this.SaveCarts(product.productCart) }
+                    >
+                      +
+                    </button>
+                    <button
+                      onClick={ () => this.RemoveCartButtom(product) }
+                      data-testid="remove-product"
+                    >
+                      Remover
+                    </button>
                   </li>
-                ))
-              )
+                )))
           }
         </ul>
       </section>

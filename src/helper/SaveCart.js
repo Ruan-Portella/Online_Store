@@ -30,3 +30,19 @@ export const SaveProduct = (product) => {
   localStorage.setItem('CartsProduct', JSON.stringify(ListProducts));
   GetQuantityProduct();
 };
+
+export const removeCartID = (products) => {
+  const car = JSON.parse(localStorage.getItem('CartsProduct'));
+  const filter = car.map(({ id }) => id);
+  const removedItem = filter.lastIndexOf(products.id);
+  const newArrCarr = car.filter((_arr, index) => index !== removedItem);
+  localStorage.setItem('CartsProduct', JSON.stringify(newArrCarr));
+  GetQuantityProduct();
+};
+
+export const removeCartIDButton = (id) => {
+  const cartProducts = [...GetSavedProduct()];
+  const novo = cartProducts.filter((product) => product.id !== id);
+  localStorage.setItem('CartsProduct', JSON.stringify(novo));
+  GetQuantityProduct();
+};
