@@ -2,7 +2,9 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { getProductById } from '../services/api';
-import { SaveProduct } from '../helper/SaveCart';
+import { GetSavedAssessment, SaveProduct } from '../helper/SaveCart';
+import AssessmentForm from '../Components/AssessmentForm';
+import AssessmentReview from '../Components/AssessmentReview';
 
 export default class DetailsProduct extends Component {
   state = {
@@ -10,17 +12,23 @@ export default class DetailsProduct extends Component {
     thumbnail: '',
     price: '',
     attributes: [],
+    idUrl: '',
+    DataReview: [],
   };
 
   async componentDidMount() {
     const { match: { params: { id } } } = this.props;
     const categories = await getProductById(id);
-    this.setState({ ...categories });
-    console.log(categories);
+    const Review = GetSavedAssessment(id);
+    this.setState({ ...categories, idUrl: id, DataReview: Review });
   }
 
+  DidMount = () => {
+    this.componentDidMount();
+  };
+
   render() {
-    const { title, thumbnail, price, attributes } = this.state;
+    const { title, thumbnail, price, attributes, idUrl, DataReview } = this.state;
     return (
       <section>
         <h2 data-testid="product-detail-name">{ title }</h2>
@@ -51,6 +59,8 @@ export default class DetailsProduct extends Component {
         >
           Adicionar Ao Carrinho De Compras
         </button>
+        <AssessmentForm idUrl={ idUrl } DidMount={ () => this.DidMount() } />
+        <AssessmentReview DataReview={ DataReview } />
       </section>
     );
   }
