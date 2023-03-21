@@ -79,7 +79,13 @@ class ShoppingCart extends React.Component {
                 )))
           }
         </ul>
-        <Link data-testid="checkout-products" to="/ShoppingCart/Checkout">Continuar Compra</Link>
+        <Link
+          data-testid="checkout-products"
+          to="/ShoppingCart/Checkout"
+        >
+          Continuar Compra
+
+        </Link>
       </section>
     );
   }
