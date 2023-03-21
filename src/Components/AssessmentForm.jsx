@@ -43,12 +43,12 @@ export default class AssessmentForm extends Component {
         text: '',
         rating: '',
       });
+      const { idUrl, DidMount } = this.props;
+      const { text, email, rating } = this.state;
+      const Assessment = { text, email, rating };
+      SaveAssessment(Assessment, idUrl);
+      DidMount();
     }
-    const { idUrl, DidMount } = this.props;
-    const { text, email, rating } = this.state;
-    const Assessment = { text, email, rating };
-    SaveAssessment(Assessment, idUrl);
-    DidMount();
   };
 
   render() {
