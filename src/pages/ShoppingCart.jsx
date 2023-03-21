@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { GetSavedProductQuantity, removeCartID,
   removeCartIDButton, SaveProduct } from '../helper/SaveCart';
 
@@ -78,6 +79,7 @@ class ShoppingCart extends React.Component {
                 )))
           }
         </ul>
+        <Link data-testid="checkout-products" to="/ShoppingCart/Checkout">Continuar Compra</Link>
       </section>
     );
   }
