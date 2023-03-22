@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import FilterCategories from '../Components/FilterCategories';
 import { getProductByCategory, getProductByQuery } from '../services/api';
 import ProductCard from '../Components/ProductCard';
+import { GetSavedProduct } from '../helper/SaveCart';
 
 class Home extends React.Component {
   constructor() {
@@ -10,7 +11,13 @@ class Home extends React.Component {
     this.state = {
       search: '',
       productsList: [],
+      quantityCart: '',
     };
+  }
+
+  componentDidMount() {
+    const CartLength = GetSavedProduct();
+    this.setState({ quantityCart: CartLength });
   }
 
   handleInputChange = ({ target }) => {
@@ -37,10 +44,16 @@ class Home extends React.Component {
     });
   };
 
+  SaveQuantity = () => {
+    const CartLength = GetSavedProduct();
+    this.setState({ quantityCart: CartLength });
+  };
+
   render() {
-    const { search, productsList } = this.state;
+    const { search, productsList, quantityCart } = this.state;
     return (
       <>
+        <p data-testid="shopping-cart-size">{ quantityCart.length }</p>
         <aside><FilterCategories getCategory={ this.getCategory } /></aside>
         <label>
           <input
@@ -66,7 +79,11 @@ class Home extends React.Component {
           Carrinho de Compras
         </Link>
         {productsList.length > 0
-          ? <ProductCard productsList={ productsList } />
+          ? (
+            <ProductCard
+              productsList={ productsList }
+              SaveQuantity={ this.SaveQuantity }
+            />)
           : <p>Nenhum produto foi encontrado</p>}
       </>
     );
