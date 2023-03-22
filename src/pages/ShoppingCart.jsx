@@ -30,6 +30,16 @@ class ShoppingCart extends React.Component {
   };
 
   SaveCarts = (product) => {
+    const { productsList } = this.state;
+    let productIndex = 0;
+    productsList.forEach((element, index) => {
+      if (element.productCart.id === product.id) {
+        productIndex = index;
+      }
+    });
+    if (productsList[productIndex].quantityCart === product.available_quantity) {
+      return;
+    }
     SaveProduct(product);
     this.componentDidMount();
   };
