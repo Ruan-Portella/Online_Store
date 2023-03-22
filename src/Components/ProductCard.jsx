@@ -4,6 +4,12 @@ import { Link } from 'react-router-dom';
 import { SaveProduct } from '../helper/SaveCart';
 
 export default class ProductCard extends Component {
+  SaveProductAndQuantity = (product) => {
+    const { SaveQuantity } = this.props;
+    SaveProduct(product);
+    SaveQuantity();
+  };
+
   render() {
     const { productsList } = this.props;
     return (
@@ -23,7 +29,7 @@ export default class ProductCard extends Component {
                 <p>{`Preço: R$ ${product.price}`}</p>
               </Link>
               <button
-                onClick={ () => SaveProduct(product) }
+                onClick={ () => this.SaveProductAndQuantity(product) }
                 data-testid="product-add-to-cart"
                 id={ product.id }
               >
