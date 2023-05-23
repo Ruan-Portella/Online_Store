@@ -1,0 +1,126 @@
+.ShoppingCartMain {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 40px;
+
+}
+
+.ProductLeftBack {
+  display: flex;
+  height: 3%;
+  width: 4%;
+}
+
+.ProductLeftBack > p {
+  color: #31c28d;
+  font-weight: 600;
+  margin-left: 10px;
+}
+
+.CartEmpty {
+  align-items: center;
+  display: flex;
+  height: 70vh;
+  justify-content: center;
+}
+
+.ShoppingCartContent {
+  background-color: white;
+  display: flex;
+  height: 60vh;
+  padding: 30px;
+}
+
+.ShoppingCartContent > ul {
+  overflow-y: scroll;
+  padding: 10px;
+  width: 60vw;
+}
+
+.ShoppingCartContent > ul > li {
+  align-items: center;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.ShoppingCartContent > ul > li:hover {
+  border: 2px solid blue;
+}
+
+.ShoppingCartContent > ul > li > button {
+  background-color: white;
+  border: none;
+  color: #b0b3bb;
+  font-size: 25px;
+  width: 40px;
+}
+
+.ShoppingCartContent > ul > li > button:hover {
+  color: blue;
+  cursor: pointer;
+  transform: translateY(-5%);
+  transition: 0.2s;
+}
+
+.ShoppingCartContent > ul > li > h2 {
+  font-size: 15px;
+  margin: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 30vw;
+}
+
+
+.Content > p {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 20px;
+  margin: 0 auto;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.ShoppingCartContent > ul > li > p {
+  background-color: #b0b3bb;
+  border-radius: 50%;
+  font-size: 15px;
+  padding: 3px;
+  width: 20px;
+}
+
+
+.Content > p:nth-child( 2 ) {
+  margin-bottom: 50px;
+  margin-top: 20px;
+}
+
+.FinalContent {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
+.LinkButton {
+  backface-visibility: hidden;
+  background-color: #31c28d;
+  border: none;
+  color: white;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  padding: 10px 20px;
+}
+
+.LinkButton:hover {
+  background-color: rgba(0, 59, 229, 0.8);
+  box-shadow: 0 3px 4px 1px black;
+  color: white;
+  cursor: pointer;
+  transform: translateY(-5%);
+  transition: 0.2s;
+}

@@ -1,0 +1,35 @@
+.container {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+}
+
+.Loading {
+  animation: round 1.8s linear infinite;
+  border: solid white 3px;
+  border-radius: 50%;
+  height: 70px;
+  width: 70px;
+}
+
+.Loading:after {
+  background: rgb(2, 8, 188);
+  border-radius: 50%;
+  content: '';
+  height: 15px;
+  position: absolute;
+  top: -8px;
+  width: 15px;
+}
+
+@keyframes round {
+
+  from {
+    rotate: 0deg;
+  }
+
+  to {
+    rotate: 360deg;
+  }
+}

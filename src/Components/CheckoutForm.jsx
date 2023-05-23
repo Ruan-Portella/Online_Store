@@ -1,4 +1,6 @@
+/* eslint-disable react/prop-types */
 import React, { Component } from 'react';
+import '../style/CheckoutForm.css';
 
 export default class CheckoutForm extends Component {
   state = {
@@ -46,7 +48,8 @@ export default class CheckoutForm extends Component {
     return validation;
   };
 
-  FinishShop = () => {
+  FinishShop = async () => {
+    const { searchProducts } = this.props;
     const { Notvalidate } = this.state;
     if (Notvalidate) {
       this.setState({
@@ -58,6 +61,7 @@ export default class CheckoutForm extends Component {
       });
       localStorage.setItem('CartsProduct', []);
       localStorage.setItem('ProductQuantity', []);
+      searchProducts();
     }
   };
 
@@ -72,9 +76,9 @@ export default class CheckoutForm extends Component {
       ErrorMessage,
     } = this.state;
     return (
-      <form>
-        <label>
-          Nome
+      <section className="FormContentMain">
+        <h3>Informações do Comprador</h3>
+        <section className="NameAndCpf">
           <input
             data-testid="checkout-fullname"
             name="inputName"
@@ -82,9 +86,15 @@ export default class CheckoutForm extends Component {
             placeholder="Nome Completo"
             onChange={ this.handleChange }
           />
-        </label>
-        <label>
-          Email
+          <input
+            data-testid="checkout-cpf"
+            name="inputCPF"
+            value={ inputCPF }
+            placeholder="CPF"
+            onChange={ this.handleChange }
+          />
+        </section>
+        <section className="EmailAndTelefone">
           <input
             data-testid="checkout-email"
             name="inputEmail"
@@ -92,19 +102,6 @@ export default class CheckoutForm extends Component {
             placeholder="email@email.com"
             onChange={ this.handleChange }
           />
-        </label>
-        <label>
-          CPF
-          <input
-            data-testid="checkout-cpf"
-            name="inputCPF"
-            value={ inputCPF }
-            placeholder="000.000.000-00"
-            onChange={ this.handleChange }
-          />
-        </label>
-        <label>
-          Telefone
           <input
             data-testid="checkout-phone"
             name="inputTelefone"
@@ -112,9 +109,8 @@ export default class CheckoutForm extends Component {
             placeholder="(00)00000-0000"
             onChange={ this.handleChange }
           />
-        </label>
-        <label>
-          CEP
+        </section>
+        <section className="CepAndEnd">
           <input
             data-testid="checkout-cep"
             name="inputCEP"
@@ -122,9 +118,6 @@ export default class CheckoutForm extends Component {
             placeholder="00000-000"
             onChange={ this.handleChange }
           />
-        </label>
-        <label>
-          Endereço
           <input
             data-testid="checkout-address"
             name="inputAddress"
@@ -132,59 +125,61 @@ export default class CheckoutForm extends Component {
             placeholder="Endereço Completo"
             onChange={ this.handleChange }
           />
-        </label>
-        <label>
-          Pix
-          <input
-            type="radio"
-            data-testid="ticket-payment"
-            name="payment"
-            value="1"
-            onChange={ this.handleChange }
-          />
-        </label>
-        <label>
-          Visa
-          <input
-            type="radio"
-            data-testid="visa-payment"
-            name="payment"
-            value="2"
-            onChange={ this.handleChange }
-          />
-        </label>
-        <label>
-          Mastercard
-          <input
-            type="radio"
-            data-testid="master-payment"
-            name="payment"
-            value="3"
-            onChange={ this.handleChange }
-          />
-        </label>
-        <label>
-          Elo
-          <input
-            type="radio"
-            data-testid="elo-payment"
-            name="payment"
-            value="4"
-            onChange={ this.handleChange }
-          />
-        </label>
+        </section>
+        <section className="Payment">
+          <label>
+            Pix
+            <input
+              type="radio"
+              data-testid="ticket-payment"
+              name="payment"
+              value="1"
+              onChange={ this.handleChange }
+            />
+          </label>
+          <label>
+            Visa
+            <input
+              type="radio"
+              data-testid="visa-payment"
+              name="payment"
+              value="2"
+              onChange={ this.handleChange }
+            />
+          </label>
+          <label>
+            Mastercard
+            <input
+              type="radio"
+              data-testid="master-payment"
+              name="payment"
+              value="3"
+              onChange={ this.handleChange }
+            />
+          </label>
+          <label>
+            Elo
+            <input
+              type="radio"
+              data-testid="elo-payment"
+              name="payment"
+              value="4"
+              onChange={ this.handleChange }
+            />
+          </label>
+        </section>
         <button
           type="button"
           data-testid="checkout-btn"
-          onClick={ this.FinishShop }
+          onClick={ () => this.FinishShop() }
         >
-          Finalizar Compra
+          Comprar
 
         </button>
         {
           ErrorMessage && (<p data-testid="error-msg">Campos inválidos</p>)
         }
-      </form>
+      </section>
     );
   }
 }

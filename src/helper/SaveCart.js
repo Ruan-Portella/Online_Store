@@ -3,6 +3,11 @@ export const GetSavedProduct = () => {
   return cartProducts ? JSON.parse(cartProducts) : [];
 };
 
+export const GetSavedSearch = () => {
+  const cartProducts = localStorage.getItem('SearchedInput');
+  return cartProducts ? JSON.parse(cartProducts) : '';
+};
+
 export const GetSavedAssessment = (id) => {
   const cartProducts = localStorage.getItem(id);
   return cartProducts ? JSON.parse(cartProducts) : [];
@@ -34,6 +39,11 @@ export const SaveProduct = (product) => {
   const ListProducts = [...productSaved, product];
   localStorage.setItem('CartsProduct', JSON.stringify(ListProducts));
   GetQuantityProduct();
+};
+
+export const SaveSearch = (value, boolean = false) => {
+  const localStorageSearch = [value, boolean];
+  localStorage.setItem('SearchedInput', JSON.stringify(localStorageSearch));
 };
 
 export const SaveAssessment = (Assessment, id) => {

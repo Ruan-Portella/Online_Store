@@ -1,0 +1,12 @@
+.HomeMain {
+  display: flex;
+  width: 100%;
+}
+
+.HomeMainContent {
+  display: flex;
+  justify-content: center;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  width: 100%;
+}

@@ -1,0 +1,111 @@
+.Product {
+  display: flex;
+}
+
+.ProductLeft {
+  width: 50%;
+}
+
+.ProductLeftBack {
+  display: flex;
+  margin: 20px;
+}
+
+.ProductLeftBack > p {
+  color: #31c28d;
+  font-weight: 600;
+  margin-left: 10px;
+}
+
+.ProductLeftMain {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.ProductLeftContent {
+  align-items: center;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  height: 75vh;
+  justify-content: space-evenly;
+  width: 90%;
+}
+
+.ProductLeftContent > h2 {
+  margin: 50px;
+}
+
+.ProductLeftContent > img {
+  height: 300px;
+  margin-bottom: 50px;
+  width: 300px;
+}
+
+.ProductRight {
+  display: flex;
+  flex-direction: column;
+  margin-left: 50px;
+  width: 50vw;
+}
+
+.ProductRightInfo {
+  margin-top: 60px;
+}
+
+.ProductRightInfo > h3 {
+  display: flex;
+  justify-content: center;
+  margin-left: 30px;
+}
+
+.ProductRightInfo > ul {
+  align-items: flex-start;
+  display: flex;
+  flex-flow: column wrap;
+  margin: 30px;
+}
+
+.ProductRightInfo > ul > li {
+  list-style: none;
+  margin: 4px;
+}
+
+.ProductRigthCart {
+  align-items: center;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.ProductRigthCart > p {
+  font-size: 20;
+  font-weight: 600;
+}
+
+.ProductRigthCart > button {
+  backface-visibility: hidden;
+  background-color: #31c28d;
+  border: none;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  padding: 10px;
+}
+
+.ProductRigthCart > button:hover {
+  background-color: rgba(0, 59, 229, 0.8);
+  box-shadow: 0 3px 4px 1px black;
+  color: white;
+  cursor: pointer;
+  transform: translateY(-5%);
+  transition: 0.2s;
+}
+
+.AssessmentMain {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  margin-top: 50px;
+  width: 90%;
+}
+

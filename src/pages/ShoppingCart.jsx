@@ -1,19 +1,33 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { GetSavedProductQuantity, removeCartID,
-  removeCartIDButton, SaveProduct } from '../helper/SaveCart';
+import Header from '../Components/Header';
+import { GetSavedProduct, GetSavedProductQuantity, removeCartID,
+  removeCartIDButton, SaveProduct, SaveSearch } from '../helper/SaveCart';
+import '../style/ShoppingCart.css';
+import VoltarImage from '../images/Voltar.png';
+import CartEmpty from '../Components/CartEmpty';
 
 class ShoppingCart extends React.Component {
   constructor() {
     super();
     this.state = {
       productsList: [],
+      search: '',
+      FirstPage: true,
+      quantityCart: '',
+      priceTotal: 0,
     };
   }
 
   componentDidMount() {
     const Cart = GetSavedProductQuantity();
-    this.setState({ productsList: Cart });
+    const CartLength = GetSavedProduct();
+    let price = 0;
+    CartLength.forEach((product) => {
+      price += product.price;
+    });
+    this.setState({ productsList: Cart, quantityCart: CartLength, priceTotal: price });
   }
 
   RemoveCart = (product) => {
@@ -22,6 +36,19 @@ class ShoppingCart extends React.Component {
     }
     removeCartID(product.productCart);
     this.componentDidMount();
+  };
+
+  handleInputChange = ({ target }) => {
+    this.setState({
+      search: target.value,
+    });
+  };
+
+  searchProducts = async () => {
+    const { history } = this.props;
+    const { search, FirstPage } = this.state;
+    SaveSearch(search, FirstPage);
+    history.push('/');
   };
 
   RemoveCartButtom = (product) => {
@@ -45,59 +72,102 @@ class ShoppingCart extends React.Component {
   };
 
   render() {
-    const { productsList } = this.state;
+    const { productsList, search, quantityCart, priceTotal } = this.state;
     return (
       <section>
-        <ul data-testid="product-add-to-cart">
-          {
-            productsList.length <= 0 ? (
-              <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>)
-              : (
-                productsList.map((product) => (
-                  <li key={ product.productCart.id }>
-                    <h2 data-testid="shopping-cart-product-name">
-                      { product.productCart.title }
-                    </h2>
-                    <img
-                      src={ product.productCart.thumbnail }
-                      alt={ product.productCart.title }
-                    />
-                    <p>{ product.productCart.price }</p>
-                    <button
-                      data-testid="product-decrease-quantity"
-                      onClick={ () => this.RemoveCart(product) }
-                    >
-                      -
-                    </button>
-                    <p data-testid="shopping-cart-product-quantity">
-                      { product.quantityCart }
-                    </p>
-                    <button
-                      data-testid="product-increase-quantity"
-                      id={ product.productCart.id }
-                      onClick={ () => this.SaveCarts(product.productCart) }
-                    >
-                      +
-                    </button>
-                    <button
-                      onClick={ () => this.RemoveCartButtom(product) }
-                      data-testid="remove-product"
-                    >
-                      Remover
-                    </button>
-                  </li>
-                )))
-          }
-        </ul>
-        <Link
-          data-testid="checkout-products"
-          to="/ShoppingCart/Checkout"
-        >
-          Continuar Compra
-
+        <Header
+          search={ search }
+          searchProducts={ () => this.searchProducts }
+          handleInputChange={ () => this.handleInputChange }
+          quantityCart={ quantityCart }
+        />
+        <Link to="/" style={ { textDecoration: 'none' } }>
+          <section className="ProductLeftBack">
+            <img src={ VoltarImage } alt="Imagem de Voltar" />
+            <p>Voltar</p>
+          </section>
         </Link>
+        <section className="ShoppingCartMain">
+          {
+            !productsList.length <= 0 && (
+              <section className="ShoppingCartContent">
+                <ul data-testid="product-add-to-cart">
+                  {
+                    !productsList.length <= 0 && (
+                      productsList.map((product) => (
+                        <li key={ product.productCart.id }>
+                          <button
+                            onClick={ () => this.RemoveCartButtom(product) }
+                            data-testid="remove-product"
+                          >
+                            X
+                          </button>
+                          <img
+                            src={ product.productCart.thumbnail }
+                            alt={ product.productCart.title }
+                          />
+                          <h2 data-testid="shopping-cart-product-name">
+                            { product.productCart.title }
+                          </h2>
+                          <button
+                            data-testid="product-decrease-quantity"
+                            onClick={ () => this.RemoveCart(product) }
+                          >
+                            -
+                          </button>
+                          <p data-testid="shopping-cart-product-quantity">
+                            { product.quantityCart }
+                          </p>
+                          <button
+                            data-testid="product-increase-quantity"
+                            id={ product.productCart.id }
+                            onClick={ () => this.SaveCarts(product.productCart) }
+                          >
+                            +
+                          </button>
+                          <span>{ ` R$${product.productCart.price}` }</span>
+                        </li>
+                      )))
+                  }
+                </ul>
+              </section>
+            )
+          }
+          {
+            !productsList.length <= 0 && (
+              <section className="FinalContent">
+                <section className="Content">
+                  <p>Valor Total da Compra:</p>
+                  <p>{priceTotal.toFixed(2)}</p>
+                  <Link
+                    data-testid="checkout-products"
+                    to="/ShoppingCart/Checkout"
+                    className="LinkButton"
+                    style={ { textDecoration: 'none' } }
+                  >
+                    Finalizar Compra
+
+                  </Link>
+                </section>
+              </section>
+            )
+          }
+        </section>
+        {
+          productsList.length <= 0 && (
+            <section
+              className="CartEmpty"
+            >
+              <CartEmpty />
+
+            </section>)
+        }
       </section>
     );
   }
 }
+
+ShoppingCart.propTypes = {
+  history: PropTypes.func.isRequired,
+};
 export default ShoppingCart;

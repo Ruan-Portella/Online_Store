@@ -1,0 +1,61 @@
+.FormMain {
+  margin-top: 20px;
+}
+
+.FormContent {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.InputEmailAssessment {
+  display: flex;
+  flex-direction: row;
+  gap: 19px;
+}
+
+.InputEmail > input {
+  border: 1px solid #94979d;
+  height: 35px;
+  width: 325px;
+}
+
+.InputEmail > input::placeholder {
+  font-size: 16px;
+  font-weight: 400;
+  padding: 10px;
+}
+
+.TextAreaInput > textarea {
+  border: 1px solid #94979d;
+  height: 155px;
+  width: 488px;
+}
+
+.TextAreaInput > textarea::placeholder {
+  font-size: 16px;
+  font-weight: 400;
+  padding: 10px;
+}
+
+.ButtonForm {
+  backface-visibility: hidden;
+  background-color: #31c28d;
+  border: none;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  padding: 10px;
+  width: 300px;
+}
+
+.ButtonForm:hover {
+  background-color: rgba(0, 59, 229, 0.8);
+  box-shadow: 0 3px 4px 1px black;
+  color: white;
+  cursor: pointer;
+  transform: translateY(-5%);
+  transition: 0.2s;
+}

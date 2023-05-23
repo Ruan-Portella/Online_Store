@@ -1,0 +1,25 @@
+.NotFoundMain {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 37%;
+}
+
+.NotFoundMain > p {
+  color: #31c28d;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 600;
+  letter-spacing: 0.055em;
+  margin-bottom: 10px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.NotFoundMain > span {
+  color: #94979d;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  text-align: center;
+}

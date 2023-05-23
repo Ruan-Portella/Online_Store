@@ -1,0 +1,15 @@
+.CartEmptyMain {
+  display: flex;
+  width: 19%;
+}
+
+.CartEmptyMain > p {
+  color: #31c28d;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 600;
+  letter-spacing: 0.055em;
+  margin-bottom: 10px;
+  text-align: center;
+  text-transform: uppercase;
+}

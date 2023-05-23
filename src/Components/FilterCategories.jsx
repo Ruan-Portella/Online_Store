@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { getCategories } from '../services/api';
+import '../style/FilterCategories.css';
 
 export default class FilterCategories extends React.Component {
   state = {
     categories: [],
+    categoryId: '',
   };
 
   async componentDidMount() {
@@ -12,28 +14,46 @@ export default class FilterCategories extends React.Component {
     this.setState({ categories });
   }
 
-  render() {
-    const { categories } = this.state;
+  ColorChange = (category) => {
     const { getCategory } = this.props;
+    getCategory(category);
+    this.setState({
+      categoryId: category.id,
+    });
+  };
+
+  render() {
+    const { categories, categoryId } = this.state;
     return (
-      <div>
-        <fieldset>
-          {categories.map((category) => (
-            <label
-              key={ category.id }
-            >
-              <input
-                type="radio"
-                data-testid="category"
-                name="option"
-                value={ category.name }
-                onChange={ () => getCategory(category) }
-              />
-              { category.name }
-            </label>
-          ))}
-        </fieldset>
-      </div>
+      <section className="CategoriesMain">
+        <section className="CategoriesContent">
+          <h3>Categorias</h3>
+          <ul className="UlContent">
+            {categories.map((category) => (
+              <li
+                key={ category.id }
+              >
+                <label
+                  htmlFor={ category.id }
+                  className={
+                    category.id === categoryId ? 'CategoriesList-selected' : null
+                  }
+                >
+                  <input
+                    id={ category.id }
+                    type="radio"
+                    data-testid="category"
+                    name="option"
+                    value={ category.id }
+                    onChange={ () => this.ColorChange(category) }
+                  />
+                  { category.name }
+                </label>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </section>
     );
   }
 }

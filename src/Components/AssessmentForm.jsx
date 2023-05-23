@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { SaveAssessment } from '../helper/SaveCart';
+import '../style/AssessmentForm.css';
 
 export default class AssessmentForm extends Component {
   state = {
@@ -54,75 +55,79 @@ export default class AssessmentForm extends Component {
   render() {
     const { email, text, ErrorMessage } = this.state;
     return (
-      <form>
-        <label>
-          Email:
-          <input
-            type="email"
-            data-testid="product-detail-email"
-            name="email"
-            value={ email }
-            onChange={ this.handleChange }
-          />
-        </label>
-        Avaliação:
-        <input
-          type="radio"
-          data-testid="1-rating"
-          name="rating"
-          value="1"
-          onChange={ this.handleChange }
-        />
-        <input
-          type="radio"
-          data-testid="2-rating"
-          name="rating"
-          value="2"
-          onChange={ this.handleChange }
-        />
-        <input
-          type="radio"
-          data-testid="3-rating"
-          name="rating"
-          value="3"
-          onChange={ this.handleChange }
-        />
-        <input
-          type="radio"
-          data-testid="4-rating"
-          name="rating"
-          value="4"
-          onChange={ this.handleChange }
-        />
-        <input
-          type="radio"
-          data-testid="5-rating"
-          name="rating"
-          value="5"
-          onChange={ this.handleChange }
-        />
-        <label>
-          Descrição:
-          <textarea
-            type="text"
-            data-testid="product-detail-evaluation"
-            name="text"
-            value={ text }
-            onChange={ this.handleChange }
-          />
-        </label>
-        <button
-          type="button"
-          onClick={ this.CreateAssessment }
-          data-testid="submit-review-btn"
-        >
-          Enviar
-
-        </button>
-        {
-          ErrorMessage && (<p data-testid="error-msg">Campos inválidos</p>)
-        }
-      </form>
+      <section className="FormMain">
+        <h2>Avaliações</h2>
+        <section className="FormContent">
+          <section className="InputEmailAssessment">
+            <label className="InputEmail">
+              <input
+                type="email"
+                data-testid="product-detail-email"
+                name="email"
+                value={ email }
+                placeholder="Email"
+                onChange={ this.handleChange }
+              />
+            </label>
+            <input
+              type="radio"
+              data-testid="1-rating"
+              name="rating"
+              value="1"
+              onChange={ this.handleChange }
+            />
+            <input
+              type="radio"
+              data-testid="2-rating"
+              name="rating"
+              value="2"
+              onChange={ this.handleChange }
+            />
+            <input
+              type="radio"
+              data-testid="3-rating"
+              name="rating"
+              value="3"
+              onChange={ this.handleChange }
+            />
+            <input
+              type="radio"
+              data-testid="4-rating"
+              name="rating"
+              value="4"
+              onChange={ this.handleChange }
+            />
+            <input
+              type="radio"
+              data-testid="5-rating"
+              name="rating"
+              value="5"
+              onChange={ this.handleChange }
+            />
+          </section>
+          <label className="TextAreaInput">
+            <textarea
+              type="text"
+              data-testid="product-detail-evaluation"
+              name="text"
+              value={ text }
+              onChange={ this.handleChange }
+              placeholder="Mensagem (opcional)"
+            />
+          </label>
+          <button
+            type="button"
+            className="ButtonForm"
+            onClick={ this.CreateAssessment }
+            data-testid="submit-review-btn"
+          >
+            Avaliar
+          </button>
+          {
+            ErrorMessage && (<p data-testid="error-msg">Campos inválidos</p>)
+          }
+        </section>
+      </section>
     );
   }
 }

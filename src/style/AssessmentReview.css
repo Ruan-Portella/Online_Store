@@ -1,0 +1,29 @@
+.ReviewMain {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.ReviewContent {
+  align-items: flex-start;
+  border: 1px solid  rgb(0, 59, 229);
+  display: flex;
+  flex-flow: column;
+  gap: 20px;
+  width: 100vw;
+}
+
+.Review {
+  display: flex;
+  flex-flow: row wrap;
+  margin: 25px;
+}
+
+
+.Review > span {
+  margin-left: 30px;
+}
+
+.ReviewContent > p {
+  margin-bottom: 20px;
+  margin-left: 30px;
+}
